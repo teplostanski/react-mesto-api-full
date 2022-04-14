@@ -1,0 +1,38 @@
+{
+  "name": "express-mesto-gha",
+  "version": "1.0.0",
+  "description": "",
+  "main": "app.js",
+  "scripts": {
+    "dev": "nodemon app.js",
+    "lint": "eslint . --ext .js --fix",
+    "start": "node app.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/r0bomurlok/express-mesto-gha.git"
+  },
+  "keywords": [],
+  "author": "r0bomurlok",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/r0bomurlok/express-mesto-gha/issues"
+  },
+  "homepage": "https://github.com/r0bomurlok/express-mesto-gha#readme",
+  "devDependencies": {
+    "eslint": "^8.12.0",
+    "eslint-config-airbnb-base": "^15.0.0",
+    "eslint-plugin-import": "^2.25.4",
+    "nodemon": "^2.0.15"
+  },
+  "dependencies": {
+    "bcryptjs": "^2.4.3",
+    "body-parser": "^1.19.2",
+    "celebrate": "^15.0.1",
+    "cookie-parser": "^1.4.6",
+    "express": "^4.17.3",
+    "jsonwebtoken": "^8.5.1",
+    "mongoose": "^6.2.8",
+    "validator": "^13.7.0"
+  }
+}

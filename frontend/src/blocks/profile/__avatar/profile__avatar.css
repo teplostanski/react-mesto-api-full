@@ -1,0 +1,15 @@
+.profile__avatar {
+  box-sizing: border-box;
+  border-radius: 50%;
+  height: 120px;
+  width: 120px;
+  overflow: hidden;
+  object-fit: cover;
+}
+
+@media screen and (max-width: 910px) {
+  .profile__avatar {
+    margin: 40px 0 0 0;
+  }
+}
+
