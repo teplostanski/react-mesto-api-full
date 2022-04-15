@@ -98,7 +98,7 @@ module.exports.updateAvatar = (req, res, next) => {
 
 module.exports.login = (req, res, next) => {
   const { email, password } = req.body;
-  return User.findUserByCredentials(email, password)
+  User.findUserByCredentials(email, password)
     .then((user) => {
       const token = jwt.sign(
         { _id: user._id },
@@ -107,14 +107,16 @@ module.exports.login = (req, res, next) => {
       );
       res
         .cookie('jwt', token, {
+          domain: 'http://localhost:3000',
           maxAge: 3600000,
-          httpOnly: true,
-          sameSite: true,
-          domain: '.w98.link',
+          httpOnly: false,
+          sameSite: false,
+          secure: false,
         })
         .end();
     })
-    .catch(() => {
-      next(new InternalError());
+    .catch((error) => {
+      console.error(error);
+      next(error);
     });
 };
