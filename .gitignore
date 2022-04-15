@@ -37,3 +37,4 @@ node_modules
 
 .env
 /frontend/build/
+/backend/.gitignore
