@@ -9,16 +9,15 @@ function Login(props) {
   function handleSubmit(email, password) {
     auth.authorize(email, password)
       .then((data) => {
-        if (data.token) {
+        if (data?.error) {
+          props.handleInfoTooltip(false, data.error);
+        } else {
           props.handleLogin();
           navigate('/');
-        } else {
-          throw new Error(data.error)
         }
-
       })
-      .catch((data) => {
-        props.handleInfoTooltip(false, data.message);
+      .catch(() => {
+        props.handleInfoTooltip(false, 'Что-то пошло не так');
       });
   }
 
