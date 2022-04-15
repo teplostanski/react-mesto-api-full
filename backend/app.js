@@ -9,13 +9,13 @@ const { login, createUser } = require('./controllers/user');
 const auth = require('./middlewares/auth');
 const regExp = require('./utils/regexp');
 const NotFoundError = require('./errors/not-found-err');
+const { APP_PORT, FRONTEND_DOMAIN, APP_PROTOCOL } = require('./config');
 const { requestLogger, errorLogger } = require('./middlewares/logger');
 
 const app = express();
-const { PORT = 3000 } = process.env;
 
 app.use(cors({
-  origin: ['http://localhost:3000'],
+  origin: [`${APP_PROTOCOL}://${FRONTEND_DOMAIN}`],
   allowedHeaders: ['Access-Control-Allow-Credentials', 'Access-Control-Allow-Origin', 'Content-Type'],
   methods: ['GET', 'HEAD', 'PUT', 'PATCH', 'POST', 'DELETE'],
   credentials: true,
@@ -74,6 +74,6 @@ app.use((err, req, res, next) => {
   res.send({ message: err.message || 'Неизвестная ошибка' });
 });
 
-app.listen(PORT, () => {
-  console.log(`App listening on port ${PORT}`);
+app.listen(APP_PORT, () => {
+  console.log(`App listening on port ${APP_PORT}`);
 });

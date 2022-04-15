@@ -7,6 +7,7 @@ class Api {
 
   _fetch(personalMethod, options) {
     return fetch(this._options.baseRoute + personalMethod, {
+      credentials: 'include',
       headers: this._options.headers,
       ...options,
     }).then((res) => {
@@ -56,13 +57,13 @@ class Api {
   }
 
   setLike(cardId) {
-    return this._fetch(`/cards/likes/${cardId}`, {
+    return this._fetch(`/cards/${cardId}/likes/`, {
       method: "PUT",
     });
   }
 
   deleteLike(cardId) {
-    return this._fetch(`/cards/likes/${cardId}`, {
+    return this._fetch(`/cards/${cardId}/likes/`, {
       method: "DELETE",
     });
   }

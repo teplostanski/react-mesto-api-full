@@ -46,14 +46,14 @@ export const authorize = (email, password) => {
     }));
 };
 
-export const checkToken = (token) => {
+export const checkToken = () => {
   return fetch(`${API_ENDPOINT}/users/me`, {
     method: 'GET',
     headers: {
       'Accept': 'application/json',
-      'Content-Type': 'application/json',
-      'Authorization': `Bearer ${token}`
-    }
+      'Content-Type': 'application/json'
+    },
+    credentials: 'include',
   })
     .then(res => {
       if (!res.ok) {

@@ -6,6 +6,7 @@ const InternalError = require('../errors/internal-err');
 const NotFoundError = require('../errors/not-found-err');
 const BadRequestError = require('../errors/bad-request-err');
 const ConflictError = require('../errors/conflict-err');
+const { FRONTEND_DOMAIN } = require('../config');
 
 module.exports.getUsers = (req, res, next) => {
   User.find({})
@@ -107,7 +108,7 @@ module.exports.login = (req, res, next) => {
       );
       res
         .cookie('jwt', token, {
-          domain: 'http://localhost:3000',
+          domain: `.${FRONTEND_DOMAIN}`,
           maxAge: 3600000,
           httpOnly: false,
           sameSite: false,
