@@ -113,9 +113,9 @@ module.exports.login = (req, res, next) => {
         .cookie('jwt', token, {
           domain: '.w98.link',
           maxAge: week,
-          httpOnly: false,
-          sameSite: false,
-          secure: false,
+          httpOnly: true,
+          sameSite: true,
+          secure: true,
         })
         .end();
     })

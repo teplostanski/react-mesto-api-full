@@ -63,9 +63,9 @@ app.use('/cards', require('./routes/card'));
 app.post('/signout', (req, res) => {
   res.status(200).clearCookie('jwt', {
     domain: '.w98.link',
-    httpOnly: false,
-    sameSite: false,
-    secure: false,
+    httpOnly: true,
+    sameSite: true,
+    secure: true,
   }).send({ message: 'Выход' });
 });
 
