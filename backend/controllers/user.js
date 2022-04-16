@@ -116,7 +116,8 @@ module.exports.login = (req, res, next) => {
           httpOnly: true,
           sameSite: true,
           secure: true,
-        });
+        })
+        .send({ message: 'Логин прошел успешно' });
     })
     .catch((error) => {
       console.error(error);
