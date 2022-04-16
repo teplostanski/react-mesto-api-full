@@ -1,4 +1,5 @@
 /* eslint-disable no-console */
+require('dotenv').config();
 const express = require('express');
 const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
@@ -9,13 +10,12 @@ const { login, createUser } = require('./controllers/user');
 const auth = require('./middlewares/auth');
 const regExp = require('./utils/regexp');
 const NotFoundError = require('./errors/not-found-err');
-const { APP_PORT, FRONTEND_DOMAIN, APP_PROTOCOL } = require('./config');
 const { requestLogger, errorLogger } = require('./middlewares/logger');
 
 const app = express();
 
 app.use(cors({
-  origin: [`${APP_PROTOCOL}://${FRONTEND_DOMAIN}`],
+  origin: ['https://w98.link', 'http://w98.link'],
   allowedHeaders: ['Access-Control-Allow-Credentials', 'Access-Control-Allow-Origin', 'Content-Type'],
   methods: ['GET', 'HEAD', 'PUT', 'PATCH', 'POST', 'DELETE'],
   credentials: true,
@@ -23,7 +23,6 @@ app.use(cors({
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(cookieParser());
-app.use(requestLogger); // подключаем логгер запросов
 
 mongoose.connect('mongodb://127.0.0.1:27017/mestodb', {
   useNewUrlParser: true,
@@ -33,13 +32,14 @@ mongoose.connect('mongodb://127.0.0.1:27017/mestodb', {
   }
 });
 
+app.use(requestLogger); // подключаем логгер запросов
 app.post(
   '/signin',
   celebrate({
     body: Joi.object().keys({
       email: Joi.string().email().required(),
       password: Joi.string().min(8).required(),
-    }).unknown(true),
+    }),
   }),
   login,
 );
@@ -52,13 +52,22 @@ app.post(
       name: Joi.string().min(2).max(30),
       about: Joi.string().min(2).max(30),
       avatar: Joi.string().pattern(regExp),
-    }).unknown(true),
+    }),
   }),
   createUser,
 );
 app.use(auth);
 app.use('/users', require('./routes/user'));
 app.use('/cards', require('./routes/card'));
+
+app.post('/signout', (req, res) => {
+  res.status(200).clearCookie('jwt', {
+    domain: '.w98.link',
+    httpOnly: false,
+    sameSite: false,
+    secure: false,
+  }).send({ message: 'Выход' });
+});
 
 app.use((req, res, next) => {
   next(new NotFoundError('Запрашиваемая страница не найдена'));
@@ -74,6 +83,6 @@ app.use((err, req, res, next) => {
   res.send({ message: err.message || 'Неизвестная ошибка' });
 });
 
-app.listen(APP_PORT, () => {
-  console.log(`App listening on port ${APP_PORT}`);
+app.listen(3000, () => {
+  console.log('App listening on port 3000');
 });

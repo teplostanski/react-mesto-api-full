@@ -76,6 +76,12 @@ class Api {
       }),
     });
   }
+
+  signOut() {
+    return this._fetch("/signout", {
+      method: "POST"
+    });
+  }
 }
 
 export default new Api(AUTORIZATION_PARAMS);

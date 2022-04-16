@@ -58,24 +58,11 @@ function App() {
       } else {
         setIsInitialized(true);
       }
-  //  }).catch((error) => console.error(error));
-  //}, [navigate]);
-
-  //useEffect(() => {
-  //  auth.checkToken().then((res) => {
-  //    if (res) {
-  //      setCurrentUserEmail(res.user.email);
-  //      setLoggedIn(true);
-  //      navigate("/");
-  //    }
     }).catch((error) => {
-  //    console.error(error);
-  //  });
-  //}, [loggedIn, setCurrentUserEmail, setLoggedIn, navigate]);
-        setIsInitialized(true);
-        console.error(error)}
-      );
-    }, [navigate]);
+      setIsInitialized(true);
+      console.error(error)}
+    );
+  }, [navigate]);
 
   function handleUpdateUser(name, about) {
     api
@@ -194,7 +181,17 @@ function App() {
   }
 
   function handleLogout() {
-    setLoggedIn(false)
+    //setLoggedIn(false)
+    api
+    .signOut()
+      .then(() => {
+        //console.log("LOGOUT")
+        //navigate("/sign-in")
+        window.location.href = '/sign-in';
+      })
+      .catch((err) => {
+        console.log(err);
+      });
   }
 
   function handleFormAuthPopup(isStatusSucces, message) {
@@ -204,7 +201,6 @@ function App() {
   }
 
   function signOut() {
-    localStorage.removeItem('jwt');
     handleLogout();
     navigate('/sign-in');
   }

@@ -25,7 +25,7 @@ export const register = (email, password) => {
     if (body.message) {
       return {error: body.message};
     }
-    return {email: body.user.email};
+    return {email: body.email};
   });
 };
 
