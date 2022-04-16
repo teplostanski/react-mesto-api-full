@@ -45,7 +45,7 @@ app.post(
   celebrate({
     body: Joi.object().keys({
       email: Joi.string().email().required(),
-      password: Joi.string().min(8).required(),
+      password: Joi.string().required(),
     }),
   }),
   login,
@@ -55,7 +55,7 @@ app.post(
   celebrate({
     body: Joi.object().keys({
       email: Joi.string().email().required(),
-      password: Joi.string().min(8).required(),
+      password: Joi.string().required(),
       name: Joi.string().min(2).max(30),
       about: Joi.string().min(2).max(30),
       avatar: Joi.string().pattern(regExp),
@@ -84,10 +84,10 @@ app.use(errorLogger); // логгер ошибок
 
 app.use(errors());
 
-// eslint-disable-next-line no-unused-vars
 app.use((err, req, res, next) => {
   res.status(err.statusCode || 500);
   res.send({ message: err.message || 'Неизвестная ошибка' });
+  next();
 });
 
 app.listen(3000, () => {

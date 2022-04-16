@@ -17,7 +17,6 @@ const userSchema = new mongoose.Schema({
   password: {
     type: String,
     required: true,
-    minlength: 8,
     select: false,
   },
   name: {
@@ -46,7 +45,6 @@ const userSchema = new mongoose.Schema({
 userSchema.set('toJSON', {
   transform(doc, ret) {
     const results = { ...ret };
-    results.password = null;
     return results;
   },
 });

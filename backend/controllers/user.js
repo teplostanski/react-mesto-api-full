@@ -116,8 +116,7 @@ module.exports.login = (req, res, next) => {
           httpOnly: true,
           sameSite: true,
           secure: true,
-        })
-        .end();
+        });
     })
     .catch((error) => {
       console.error(error);
